@@ -1,0 +1,9 @@
+site_name: Gestión de Estudiantes
+nav:
+  - Inicio: index.md
+  - Instalación: instalacion.md
+  - Uso: uso.md
+  - Configuración MongoDB: mongo.md
+  - Licencia: licencia.md
+theme:
+  name: material
