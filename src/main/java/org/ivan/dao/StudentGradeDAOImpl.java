@@ -2,6 +2,7 @@ package org.ivan.dao;
 
 import org.ivan.model.StudentGrade;
 import org.ivan.util.DatabaseConnection;
+import org.ivan.util.MongoLogger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +14,7 @@ import java.util.List;
 public class StudentGradeDAOImpl implements StudentGradeDAO {
     @Override
     public boolean insertarNota(StudentGrade nota) {
-        String sql = "INSERT INTO student_grades (student_nif, course_id, grade) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO student_grade (nif, course_id, grade) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -23,9 +24,13 @@ public class StudentGradeDAOImpl implements StudentGradeDAO {
             stmt.setDouble(3, nota.getGrade());
 
             int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                MongoLogger.info("Nota insertada para estudiante " + nota.getNif() + " en curso " + nota.getCourseId());
+            }
             return rowsAffected > 0;
 
         } catch (SQLException e) {
+            MongoLogger.error("Error al insertar nota: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -33,7 +38,7 @@ public class StudentGradeDAOImpl implements StudentGradeDAO {
 
     @Override
     public List<StudentGrade> mostrarNotasDeEstudiante(String nifEstudiante) {
-        String sql = "SELECT * FROM student_grades WHERE student_nif = ?";
+        String sql = "SELECT * FROM student_grade WHERE nif = ?";
         List<StudentGrade> notas = new ArrayList<>();
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -44,14 +49,16 @@ public class StudentGradeDAOImpl implements StudentGradeDAO {
 
             while (rs.next()) {
                 StudentGrade nota = new StudentGrade(
-                        rs.getString("student_nif"),
+                        rs.getString("nif"),
                         rs.getInt("course_id"),
                         rs.getDouble("grade")
                 );
                 notas.add(nota);
             }
+            MongoLogger.info("Notas consultadas para estudiante: " + nifEstudiante);
 
         } catch (SQLException e) {
+            MongoLogger.error("Error al consultar notas: " + e.getMessage());
             e.printStackTrace();
         }
         return notas;

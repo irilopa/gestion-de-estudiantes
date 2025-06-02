@@ -2,6 +2,7 @@ package org.ivan.dao;
 
 import org.ivan.model.Course;
 import org.ivan.util.DatabaseConnection;
+import org.ivan.util.MongoLogger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,7 +28,9 @@ public class CourseDAOImpl implements CourseDAO {
                 );
                 courses.add(course);
             }
+            MongoLogger.info("Listado de cursos consultado.");
         } catch (SQLException e) {
+            MongoLogger.error("Error al listar cursos: " + e.getMessage());
             e.printStackTrace();
         }
         return courses;
@@ -43,8 +46,13 @@ public class CourseDAOImpl implements CourseDAO {
         ) {
             pstmt.setString(1, curso.getName());
             pstmt.setInt(2, curso.getCourse_year());
-            return pstmt.executeUpdate() > 0;
+            boolean result = pstmt.executeUpdate() > 0;
+            if (result) {
+                MongoLogger.info("Curso insertado: " + curso.getName());
+            }
+            return result;
         } catch (SQLException e) {
+            MongoLogger.error("Error al insertar curso: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -59,8 +67,13 @@ public class CourseDAOImpl implements CourseDAO {
                 PreparedStatement pstmt = conn.prepareStatement(sql)
         ) {
             pstmt.setInt(1, idCurso);
-            return pstmt.executeUpdate() > 0;
+            boolean result = pstmt.executeUpdate() > 0;
+            if (result) {
+                MongoLogger.info("Curso eliminado: " + idCurso);
+            }
+            return result;
         } catch (SQLException e) {
+            MongoLogger.error("Error al eliminar curso: " + e.getMessage());
             System.out.println("No se ha podido encontrar el curso");
             return false;
         }
@@ -77,6 +90,7 @@ public class CourseDAOImpl implements CourseDAO {
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
+                    MongoLogger.info("Curso consultado: " + id);
                     return new Course(
                             rs.getInt("id"),
                             rs.getString("name"),
@@ -85,6 +99,7 @@ public class CourseDAOImpl implements CourseDAO {
                 }
             }
         } catch (SQLException e) {
+            MongoLogger.error("Error al consultar curso: " + e.getMessage());
             e.printStackTrace();
         }
 

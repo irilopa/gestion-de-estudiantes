@@ -27,6 +27,12 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Dependencia para MongoDB Java Driver -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver</artifactId>
+            <version>3.12.14</version>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>
