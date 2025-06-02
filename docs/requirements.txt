@@ -1,0 +1,7 @@
+mkdocs-material==9.5.6
+mkdocs-material[imaging]==9.5.6
+mkdocs-git-revision-date-localized-plugin==1.2.2
+mkdocs-minify-plugin==0.7.1
+mkdocs-glightbox==0.3.5
+pymdown-extensions==10.7
+mkdocs-social-plugin==0.1.0

@@ -1,9 +1,106 @@
-site_name: Gestión de Estudiantes
-nav:
-  - Inicio: index.md
-  - Instalación: instalacion.md
-  - Uso: uso.md
-  - Configuración MongoDB: mongo.md
-  - Licencia: licencia.md
+site_name: Documentación Sistema de Gestión de Estudiantes
+site_description: Sistema de gestión académica desarrollado en Java
+site_author: Ivan
+repo_url: https://github.com/yourusername/gestion-de-estudiantes
+
 theme:
   name: material
+  language: es
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+
+plugins:
+  - search
+  - tags
+  - git-revision-date-localized:
+      type: datetime
+      locale: es
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+
+nav:
+  - Inicio: index.md
+  - Guía de Usuario:
+    - Introducción: guia-usuario/introduccion.md
+    - Instalación: instalacion.md
+    - Uso del Sistema: uso.md
+    - Funcionalidades: guia-usuario/funcionalidades.md
+    - Solución de Problemas: troubleshooting.md
+  - Documentación Técnica:
+    - Arquitectura: tech/arquitectura.md
+    - Base de Datos: tech/database.md
+    - API Interna: tech/api.md
+    - Logging MongoDB: mongo.md
+    - Diagramas UML: tech/uml.md
+    - Rendimiento: tech/performance.md
+    - Pruebas: tech/testing.md
+  - Referencias:
+    - Glosario: references/glossary.md
+    - Contribución: references/contributing.md
+  - Legal:
+    - Licencia: licencia.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - def_list
+  - meta
+  - md_in_html
+  - footnotes
+
+extra:
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+  consent:
+    title: Cookies
+    description: >- 
+      Utilizamos cookies para reconocer sus visitas repetidas y preferencias.
