@@ -1,7 +1,7 @@
 site_name: Documentación Sistema de Gestión de Estudiantes
 site_description: Sistema de gestión académica desarrollado en Java
 site_author: Ivan
-repo_url: https://github.com/yourusername/gestion-de-estudiantes
+repo_url: https://github.com/irilopa/gestion-de-estudiantes
 
 theme:
   name: material
