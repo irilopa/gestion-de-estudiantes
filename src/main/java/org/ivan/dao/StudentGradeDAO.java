@@ -8,4 +8,6 @@ public interface StudentGradeDAO {
     boolean insertarNota(StudentGrade nota);
 
     List<StudentGrade> mostrarNotasDeEstudiante(String nifEstudiante);
+
+    List<StudentGrade> listarNotas();
 }

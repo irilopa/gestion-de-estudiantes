@@ -63,4 +63,28 @@ public class StudentGradeDAOImpl implements StudentGradeDAO {
         }
         return notas;
     }
+
+    @Override
+    public List<StudentGrade> listarNotas() {
+        String sql = "SELECT * FROM student_grade";
+        List<StudentGrade> notas = new ArrayList<>();
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                StudentGrade nota = new StudentGrade(
+                        rs.getString("nif"),
+                        rs.getInt("course_id"),
+                        rs.getDouble("grade")
+                );
+                notas.add(nota);
+            }
+            MongoLogger.info("Notas consultadas (todas)");
+        } catch (SQLException e) {
+            MongoLogger.error("Error al consultar todas las notas: " + e.getMessage());
+            e.printStackTrace();
+
+        }
+        return notas;
+    }
 }
