@@ -13,6 +13,8 @@ import org.ivan.dao.*;
 import org.ivan.model.Course;
 import org.ivan.model.Student;
 import org.ivan.model.StudentGrade;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 
 import java.util.List;
 
@@ -58,13 +60,16 @@ public class MainApp extends Application {
         refreshStudentTable();
 
         Button addBtn = new Button("Añadir");
+        addBtn.setGraphic(new FontIcon(Material2AL.ADD_CIRCLE));
         addBtn.setOnAction(e -> showStudentDialog(null));
         Button editBtn = new Button("Editar");
+        editBtn.setGraphic(new FontIcon(Material2AL.EDIT));
         editBtn.setOnAction(e -> {
             Student s = studentTable.getSelectionModel().getSelectedItem();
             if (s != null) showStudentDialog(s);
         });
         Button delBtn = new Button("Eliminar");
+        delBtn.setGraphic(new FontIcon(Material2AL.DELETE));
         delBtn.setOnAction(e -> {
             Student s = studentTable.getSelectionModel().getSelectedItem();
             if (s != null && studentDAO.eliminarEstudiante(s.getNif())) refreshStudentTable();
@@ -90,8 +95,10 @@ public class MainApp extends Application {
         refreshCourseTable();
 
         Button addBtn = new Button("Añadir");
+        addBtn.setGraphic(new FontIcon(Material2AL.ADD_CIRCLE));
         addBtn.setOnAction(e -> showCourseDialog(null));
         Button delBtn = new Button("Eliminar");
+        delBtn.setGraphic(new FontIcon(Material2AL.DELETE));
         delBtn.setOnAction(e -> {
             Course c = courseTable.getSelectionModel().getSelectedItem();
             if (c != null && courseDAO.eliminarCurso(c.getId())) refreshCourseTable();
@@ -117,6 +124,7 @@ public class MainApp extends Application {
         refreshGradeTable();
 
         Button addBtn = new Button("Añadir Nota");
+        addBtn.setGraphic(new FontIcon(Material2AL.ADD_CIRCLE));
         addBtn.setOnAction(e -> showGradeDialog());
         HBox btnBox = new HBox(10, addBtn);
         VBox vbox = new VBox(10, gradeTable, btnBox);
@@ -267,4 +275,3 @@ public class MainApp extends Application {
         refreshGradeTable();
     }
 }
-
