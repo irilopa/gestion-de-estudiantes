@@ -51,7 +51,7 @@ jobs:
 
       # Super-Linter: Validar Java y Kotlin
       - name: Super-Linter
-        uses: super-linter/super-linter@v6
+        uses: super-linter/super-linter@v8.3.1
         env:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JAVA: true
